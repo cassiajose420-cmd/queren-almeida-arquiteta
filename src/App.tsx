@@ -17,10 +17,8 @@ import {
   ShieldCheck, 
   X,
   ChevronRight,
-  MapPin,
-  Loader2
+  MapPin
 } from 'lucide-react';
-import { generateBioImages } from './services/imageGenerator';
 
 // Expert Data
 const EXPERT = {
@@ -97,55 +95,6 @@ const STEPS = [
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [bioImages, setBioImages] = useState<string[]>(() => {
-    // Try to sync load from cache to avoid flicker
-    try {
-      const cached = localStorage.getItem('ai_generated_bio_images');
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        const now = Date.now();
-        if (now - parsed.timestamp < 24 * 60 * 60 * 1000) {
-          return parsed.images;
-        }
-      }
-    } catch (e) {}
-    return EXPERT.bioImages;
-  });
-  const [loadingImages, setLoadingImages] = useState(() => {
-    // If we have cached images, we don't need to show the loader initially
-    try {
-      const cached = localStorage.getItem('ai_generated_bio_images');
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        const now = Date.now();
-        if (now - parsed.timestamp < 24 * 60 * 60 * 1000) {
-          return false;
-        }
-      }
-    } catch (e) {}
-    return true;
-  });
-
-  // Load AI generated images
-  useEffect(() => {
-    const loadImages = async () => {
-      // If we already have valid bioImages (from cache), we might still want to refresh 
-      // but let's keep it simple for now and only fetch if not loaded
-      if (!loadingImages) return;
-
-      try {
-        const generated = await generateBioImages();
-        if (generated && generated.length === 2 && generated[0] && generated[1]) {
-          setBioImages(generated);
-        }
-      } catch (error) {
-        // Silent fail, we have fallbacks
-      } finally {
-        setLoadingImages(false);
-      }
-    };
-    loadImages();
-  }, [loadingImages]);
 
   // Prevent scroll when lightbox is open
   useEffect(() => {
@@ -376,42 +325,6 @@ export default function App() {
             <p className="text-terracotta-500 font-semibold flex items-center justify-center gap-2">
               <CheckCircle2 className="w-5 h-5" /> Orçamento gratuito e sem compromisso.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* MORE PROOFS (EXPERT + BASTIDORES) */}
-      <section className="py-20 px-6 bg-terracotta-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display text-terracotta-700 mb-4">Bastidores</h2>
-            <p className="text-terracotta-600">Um olhar por trás das câmeras e do processo criativo.</p>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-terracotta-100 bg-terracotta-100/20"
-            >
-              {loadingImages ? (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="w-8 h-8 text-terracotta-400 animate-spin" />
-                </div>
-              ) : (
-                <img 
-                  src={bioImages[1]} 
-                  alt="Foco nos detalhes" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              )}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="text-white text-sm font-medium">Foco nos detalhes</p>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
