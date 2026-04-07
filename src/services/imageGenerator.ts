@@ -1,7 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 const CACHE_KEY = 'ai_generated_bio_images';
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -27,12 +25,14 @@ export async function generateBioImages() {
   }
 
   // 2. Check API Key
-  if (!process.env.GEMINI_API_KEY) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
     console.warn("GEMINI_API_KEY is missing. Skipping AI image generation.");
     return null;
   }
 
   try {
+    const ai = new GoogleGenAI({ apiKey });
     const response1 = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
