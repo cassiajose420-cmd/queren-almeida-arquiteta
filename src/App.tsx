@@ -384,33 +384,11 @@ export default function App() {
       <section className="py-20 px-6 bg-terracotta-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display text-terracotta-700 mb-4">Bastidores & Atendimento</h2>
+            <h2 className="text-3xl md:text-4xl font-display text-terracotta-700 mb-4">Bastidores</h2>
             <p className="text-terracotta-600">Um olhar por trás das câmeras e do processo criativo.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-terracotta-100 bg-terracotta-100/20"
-            >
-              {loadingImages ? (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="w-8 h-8 text-terracotta-400 animate-spin" />
-                </div>
-              ) : (
-                <img 
-                  src={bioImages[0]} 
-                  alt="Processo criativo" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              )}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="text-white text-sm font-medium">Atendimento personalizado</p>
-              </div>
-            </motion.div>
+          <div className="max-w-3xl mx-auto">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
