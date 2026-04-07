@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-accent: "Outfit", sans-serif;
+  
+  --color-terracotta-50: #faf4f2;
+  --color-terracotta-100: #f5ded9;
+  --color-terracotta-200: #ebbdb3;
+  --color-terracotta-300: #d49d91;
+  --color-terracotta-400: #bd7d6f;
+  --color-terracotta-500: #a65e4e;
+  --color-terracotta-600: #8e4f42;
+  --color-terracotta-700: #764137;
+  --color-terracotta-800: #5e342c;
+  --color-terracotta-900: #462721;
+  --color-terracotta-950: #2e1a16;
+
+  --color-beige-50: #faf9f6;
+  --color-beige-100: #f5f3ed;
+  --color-beige-200: #ebe7d9;
+  --color-beige-300: #dcd4bc;
+  --color-beige-400: #c8ba96;
+  --color-beige-500: #b39f71;
+  --color-beige-600: #9e875a;
+  --color-beige-700: #816d4a;
+  --color-beige-800: #66573c;
+  --color-beige-900: #554934;
+  --color-beige-950: #2a241a;
+}
+
+@layer base {
+  body {
+    @apply bg-beige-50 text-terracotta-950 antialiased overflow-x-hidden;
+  }
+}
+
+.glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+.cta-button {
+  @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+}
+
+.cta-button::after {
+  content: '';
+  @apply absolute inset-0 bg-white/20 translate-x-[-100%] transition-transform duration-500 skew-x-[-20deg];
+}
+
+.cta-button:hover::after {
+  @apply translate-x-[100%];
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.gallery-container {
+  @apply relative w-full overflow-hidden py-4;
+}
+
+.gallery-container::before,
+.gallery-container::after {
+  content: "";
+  @apply absolute top-0 bottom-0 w-20 z-10 pointer-events-none;
+}
+
+.gallery-container::before {
+  @apply left-0 bg-gradient-to-r from-beige-50 to-transparent;
+}
+
+.gallery-container::after {
+  @apply right-0 bg-gradient-to-l from-beige-50 to-transparent;
+}
