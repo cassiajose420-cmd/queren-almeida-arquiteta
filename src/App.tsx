@@ -97,25 +97,55 @@ const STEPS = [
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [bioImages, setBioImages] = useState<string[]>(EXPERT.bioImages);
-  const [loadingImages, setLoadingImages] = useState(true);
+  const [bioImages, setBioImages] = useState<string[]>(() => {
+    // Try to sync load from cache to avoid flicker
+    try {
+      const cached = localStorage.getItem('ai_generated_bio_images');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        const now = Date.now();
+        if (now - parsed.timestamp < 24 * 60 * 60 * 1000) {
+          return parsed.images;
+        }
+      }
+    } catch (e) {}
+    return EXPERT.bioImages;
+  });
+  const [loadingImages, setLoadingImages] = useState(() => {
+    // If we have cached images, we don't need to show the loader initially
+    try {
+      const cached = localStorage.getItem('ai_generated_bio_images');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        const now = Date.now();
+        if (now - parsed.timestamp < 24 * 60 * 60 * 1000) {
+          return false;
+        }
+      }
+    } catch (e) {}
+    return true;
+  });
 
   // Load AI generated images
   useEffect(() => {
     const loadImages = async () => {
+      // If we already have valid bioImages (from cache), we might still want to refresh 
+      // but let's keep it simple for now and only fetch if not loaded
+      if (!loadingImages) return;
+
       try {
         const generated = await generateBioImages();
         if (generated && generated.length === 2 && generated[0] && generated[1]) {
           setBioImages(generated);
         }
       } catch (error) {
-        console.error("Error generating AI images:", error);
+        // Silent fail, we have fallbacks
       } finally {
         setLoadingImages(false);
       }
     };
     loadImages();
-  }, []);
+  }, [loadingImages]);
 
   // Prevent scroll when lightbox is open
   useEffect(() => {
