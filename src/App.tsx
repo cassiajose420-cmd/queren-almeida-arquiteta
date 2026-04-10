@@ -35,20 +35,18 @@ const EXPERT = {
     "https://i.imgur.com/GKdvhAg.jpeg"
   ],
   results: [
-    "https://i.imgur.com/ffzlbFJ.jpeg",
-    "https://i.imgur.com/K79nffq.jpeg",
-    "https://i.imgur.com/9MHp9EO.jpeg",
-    "https://i.imgur.com/PA8VHrI.jpeg",
-    "https://i.imgur.com/65JMJVJ.jpeg",
-    "https://i.imgur.com/rXdU28i.jpeg",
-    "https://i.imgur.com/eUHt6BJ.jpeg",
-    "https://i.imgur.com/bhz8Kwb.jpeg",
-    "https://i.imgur.com/VBIhyfQ.jpeg",
-    "https://i.imgur.com/uCHHOVw.jpeg",
-    "https://i.imgur.com/m0X4l9x.jpeg",
-    "https://i.imgur.com/K9TXlbx.jpeg",
-    "https://i.imgur.com/srpNVOH.jpeg",
-    "https://i.imgur.com/XKplrbS.jpeg"
+    "https://i.imgur.com/8BmBVLv.jpeg",
+    "https://i.imgur.com/o4E7BJi.jpeg",
+    "https://i.imgur.com/44yXlte.jpeg",
+    "https://i.imgur.com/Z4Ar1uO.jpeg",
+    "https://i.imgur.com/gcxgCKx.jpeg",
+    "https://i.imgur.com/QvE4svn.jpeg",
+    "https://i.imgur.com/ciG9RR3.jpeg",
+    "https://i.imgur.com/MfjVwrL.jpeg",
+    "https://i.imgur.com/Gg7nNNx.jpeg",
+    "https://i.imgur.com/EQp4aPz.jpeg",
+    "https://i.imgur.com/IVB2q2V.jpeg",
+    "https://i.imgur.com/S0YhhTw.jpeg"
   ]
 };
 
